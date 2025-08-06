@@ -1,5 +1,32 @@
 {
   "files.associations": {
+    "globals.css": "tailwindcss",
     "index.css": "tailwindcss"
-  }
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/coverage": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.git": true
+  },
+  "workbench.sideBar.location": "right",
+  "files.simpleDialog.enable": true,
+  "window.zoomLevel": -1,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorBlinking": "expand",
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.fontFamily": "fira code, JetBrains Mono, Consolas, 'Courier New', monospace",
+  "editor.fontSize": 13,
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "editor.fontLigatures": true,
+  "workbench.colorTheme": "One Dark Pro Darker",
+  "editor.tabCompletion": "onlySnippets",
+  "gitlens.mode.active": "zen",
+  "editor.cursorStyle": "block"
 }
