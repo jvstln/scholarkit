@@ -1,8 +1,9 @@
-import * as React from "react"
-import { Slot as SlotPrimitive } from "radix-ui"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { Slot as SlotPrimitive } from "radix-ui";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
+import Loader from "../loader";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -33,27 +34,43 @@ const buttonVariants = cva(
       size: "default",
     },
   }
-)
+);
 
 function Button({
   className,
   variant,
   size,
   asChild = false,
+  isLoading = false,
+  loadingText,
+  disabled,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
+    asChild?: boolean;
+    isLoading?: boolean;
+    loadingText?: React.ReactNode;
   }) {
-  const Comp = asChild ? SlotPrimitive.Slot : "button"
+  const Comp = asChild ? SlotPrimitive.Slot : "button";
+  const LoadingComp = Comp === "button" ? React.Fragment : "button";
 
   return (
     <Comp
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
+      disabled={disabled || isLoading}
       {...props}
-    />
-  )
+    >
+      {isLoading ? (
+        <LoadingComp>
+          {loadingText}
+          <Loader />
+        </LoadingComp>
+      ) : (
+        props.children
+      )}
+    </Comp>
+  );
 }
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };
