@@ -67,3 +67,9 @@ started.
 **ScholarKit makes academic life breezy by turning overwhelming tasks
 into clear, guided steps---empowering every student to study smarter,
 stay focused, and confidently ace their goals.**
+
+## Summary
+
+ScholarKit: AI-powered academic toolkit for personalized tutoring, performance analytics, quiz generation, and utilities (GPA calculation, planning).
+Solves: Inefficient learning, academic stress, lack of tailored support, and poor planning for university students.
+Main objective: To analyze and improve students performance with the help of AI.
