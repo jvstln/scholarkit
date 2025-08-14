@@ -1,5 +1,21 @@
 import { ORPCError, os } from "@orpc/server";
-import type { Context } from "./context";
+import type { Context as HonoContext } from "hono";
+import { auth } from "./auth";
+
+type CreateContextOptions = {
+  context: HonoContext;
+};
+
+export async function createContext({ context }: CreateContextOptions) {
+  const session = await auth.api.getSession({
+    headers: context.req.raw.headers,
+  });
+  return {
+    session,
+  };
+}
+
+type Context = Awaited<ReturnType<typeof createContext>>;
 
 export const o = os.$context<Context>();
 

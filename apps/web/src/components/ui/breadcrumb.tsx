@@ -1,23 +1,37 @@
+"use client"
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
-import { ChevronRight, MoreHorizontal } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-function Breadcrumb({ ...props }: React.ComponentProps<"nav">) {
-  return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />
-}
+import { HugeiconsIcon } from "@hugeicons/react"
+import {
+  MoreHorizontalIcon,
+  ArrowRight01Icon,
+} from "@hugeicons/core-free-icons"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
-function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
+function Breadcrumb({
+  className,
+  rootClassName,
+  ...props
+}: React.ComponentProps<"ol"> & { rootClassName?: string }) {
   return (
-    <ol
-      data-slot="breadcrumb-list"
-      className={cn(
-        "text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5",
-        className
-      )}
-      {...props}
-    />
+    <nav
+      aria-label="breadcrumb"
+      data-slot="breadcrumb"
+      className={cn(rootClassName)}
+    >
+      <ol
+        data-slot="breadcrumb-list"
+        className={cn(
+          "text-muted-foreground flex flex-wrap items-center gap-1.5 break-words text-sm sm:gap-2.5",
+          className,
+        )}
+        {...props}
+      />
+    </nav>
   )
 }
 
@@ -33,17 +47,26 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
 
 function BreadcrumbLink({
   asChild,
+  isActive: controlledIsActive,
   className,
   ...props
 }: React.ComponentProps<"a"> & {
   asChild?: boolean
+  isActive?: boolean
 }) {
-  const Comp = asChild ? Slot : "a"
+  const Comp = asChild ? Slot : Link
+  const pathname = usePathname()
+  const isActive = controlledIsActive ?? pathname === props.href
 
   return (
     <Comp
       data-slot="breadcrumb-link"
-      className={cn("hover:text-foreground transition-colors", className)}
+      className={cn(
+        "hover:text-primary transition-colors",
+        isActive && "text-primary",
+        className,
+      )}
+      href="#"
       {...props}
     />
   )
@@ -75,7 +98,7 @@ function BreadcrumbSeparator({
       className={cn("[&>svg]:size-3.5", className)}
       {...props}
     >
-      {children ?? <ChevronRight />}
+      {children ?? <HugeiconsIcon icon={ArrowRight01Icon} />}
     </li>
   )
 }
@@ -92,7 +115,7 @@ function BreadcrumbEllipsis({
       className={cn("flex size-9 items-center justify-center", className)}
       {...props}
     >
-      <MoreHorizontal className="size-4" />
+      <HugeiconsIcon icon={MoreHorizontalIcon} className="size-4" />
       <span className="sr-only">More</span>
     </span>
   )
@@ -100,7 +123,6 @@ function BreadcrumbEllipsis({
 
 export {
   Breadcrumb,
-  BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbPage,

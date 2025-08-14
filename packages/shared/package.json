@@ -1,0 +1,12 @@
+{
+  "name": "@scholarkit/shared",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5",
+    "zod": "^4.0.17"
+  }
+}
